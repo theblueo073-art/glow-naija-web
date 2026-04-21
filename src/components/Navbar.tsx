@@ -1,26 +1,31 @@
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Home } from "lucide-react";
 
 const links = [
-  { label: "Home", href: "#home" },
-  { label: "Services", href: "#services" },
-  { label: "Gallery", href: "#gallery" },
-  { label: "About", href: "#about" },
+  { label: "Buy", href: "#listings" },
+  { label: "Rent", href: "#listings" },
+  { label: "Sell", href: "#contact" },
+  { label: "Agents", href: "#why" },
   { label: "Contact", href: "#contact" },
 ];
 
 export const Navbar = () => {
   const [open, setOpen] = useState(false);
   return (
-    <header className="fixed top-0 inset-x-0 z-40 backdrop-blur-md bg-background/80 border-b border-border/60">
+    <header className="fixed top-0 inset-x-0 z-40 backdrop-blur-md bg-primary/85 border-b border-accent/20">
       <nav className="container mx-auto flex items-center justify-between py-4">
-        <a href="#home" className="font-serif text-2xl font-bold tracking-tight">
-          Glow <span className="text-gradient-gold">Hair & Spa</span>
+        <a href="#home" className="flex items-center gap-2 text-primary-foreground">
+          <span className="w-9 h-9 rounded-lg bg-gradient-gold flex items-center justify-center shadow-gold">
+            <Home className="h-5 w-5 text-primary" />
+          </span>
+          <span className="font-serif text-xl font-bold tracking-tight">
+            Prime<span className="text-gradient-gold">Nest</span>
+          </span>
         </a>
         <ul className="hidden md:flex items-center gap-8">
           {links.map((l) => (
-            <li key={l.href}>
-              <a href={l.href} className="text-sm font-medium text-foreground/80 hover:text-primary transition-smooth">
+            <li key={l.label}>
+              <a href={l.href} className="text-sm font-medium text-primary-foreground/80 hover:text-accent transition-smooth">
                 {l.label}
               </a>
             </li>
@@ -28,24 +33,29 @@ export const Navbar = () => {
         </ul>
         <a
           href="#contact"
-          className="hidden md:inline-flex bg-gradient-primary text-primary-foreground px-5 py-2.5 rounded-full text-sm font-medium shadow-soft hover:shadow-elegant transition-smooth"
+          className="hidden md:inline-flex bg-gradient-gold text-primary px-5 py-2.5 rounded-full text-sm font-semibold shadow-gold hover:scale-105 transition-smooth"
         >
-          Book Now
+          List Property
         </a>
-        <button className="md:hidden p-2" onClick={() => setOpen(!open)} aria-label="Toggle menu">
+        <button className="md:hidden p-2 text-primary-foreground" onClick={() => setOpen(!open)} aria-label="Toggle menu">
           {open ? <X /> : <Menu />}
         </button>
       </nav>
       {open && (
-        <div className="md:hidden border-t border-border/60 bg-background">
-          <ul className="container mx-auto py-4 space-y-3">
+        <div className="md:hidden border-t border-accent/20 bg-primary">
+          <ul className="container mx-auto py-4 space-y-2">
             {links.map((l) => (
-              <li key={l.href}>
-                <a onClick={() => setOpen(false)} href={l.href} className="block py-2 text-foreground/80 hover:text-primary">
+              <li key={l.label}>
+                <a onClick={() => setOpen(false)} href={l.href} className="block py-2 text-primary-foreground/85 hover:text-accent">
                   {l.label}
                 </a>
               </li>
             ))}
+            <li>
+              <a href="#contact" onClick={() => setOpen(false)} className="inline-block mt-2 bg-gradient-gold text-primary px-5 py-2 rounded-full text-sm font-semibold">
+                List Property
+              </a>
+            </li>
           </ul>
         </div>
       )}
